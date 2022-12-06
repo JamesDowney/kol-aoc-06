@@ -34,11 +34,22 @@ var kolmafia = require("kolmafia"), console = {
 
 // src/main.ts
 var import_kolmafia = require("kolmafia");
+function helper(arrayInput, uniques) {
+  if (arrayInput.length < uniques)
+    return !1;
+  for (var retval = !0, i = 0; i < arrayInput.length - 1; i++)
+    if (arrayInput.indexOf(arrayInput[i], i + 1) !== -1) {
+      retval = !1;
+      break;
+    }
+  return retval;
+}
 function main() {
-  var input = (0, import_kolmafia.fileToBuffer)("input.txt").trim().split(/\n/g), solution = input;
-  solution.forEach(function(element) {
-    (0, import_kolmafia.print)(element);
-  }), (0, import_kolmafia.bufferToFile)(solution.join("\n"), "output.txt");
+  for (var input = (0, import_kolmafia.fileToBuffer)("input.txt").trim().split(""), substack = [], solution = 0, solution2 = 0, i = 0; i < input.length && solution === 0; )
+    helper(substack, 4) && (solution = i), substack.push(input[i]) > 4 && substack.shift(), i++;
+  for (var j = 0, substack2 = []; j < input.length && solution2 === 0; )
+    helper(substack2, 14) && (solution2 = j), substack2.push(input[j]) > 14 && substack2.shift(), j++;
+  (0, import_kolmafia.print)(solution + ""), (0, import_kolmafia.print)(solution2 + "");
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {});
